@@ -1,9 +1,15 @@
 #include "StartScene.h"
+#include "EmbeddedAssets.h"
+#include <iostream>
 
 StartScene::StartScene(const sf::Vector2u& windowSize, const std::string& lastStatsText)
 {
-    // Load bundled font (must be present in repository)
-    font_.loadFromFile("assets/fonts/Orbitron-Regular.ttf");
+    // Load bundled font from memory
+    if (!font_.loadFromMemory(GameFont_ttf, GameFont_ttf_len)) {
+        std::cerr << "Failed to load embedded font" << std::endl;
+        // Handle error if needed, though with embedded assets this should rarely fail
+    }
+
     title_.setFont(font_);
     title_.setString("Snake AI");
     title_.setCharacterSize(48);

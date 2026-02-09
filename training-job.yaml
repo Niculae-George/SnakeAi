@@ -1,0 +1,25 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: snake-ai-training
+spec:
+  parallelism: 5  # Number of pods running in parallel
+  completions: 5  # Total number of pods to complete
+  template:
+    spec:
+      containers:
+      - name: trainer
+        image: georgeen/snake-ai:latest
+        command: ["/bin/sh", "-c"]
+        args:
+          - |
+            mkdir -p /mnt/data
+            ./SnakeAiHeadless --headless 10000 /mnt/data/model.txt /mnt/data/model.txt
+        volumeMounts:
+        - name: model-storage
+          mountPath: /mnt/data
+      restartPolicy: OnFailure
+      volumes:
+      - name: model-storage
+        persistentVolumeClaim:
+          claimName: snake-model-pvc

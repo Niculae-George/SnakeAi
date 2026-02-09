@@ -1,0 +1,11 @@
+services:
+  snake-trainer:
+    build: .
+    image: georgeen/snake-ai:latest
+    volumes:
+      # This maps your current folder on your computer to /app/data in the container
+      - .:/app/data
+    # Command arguments: [attempts] [load_path] [save_path]
+    command: ["5000", "/app/data/model.txt", "/app/data/model.txt"]
+    tty: true
+    stdin_open: true

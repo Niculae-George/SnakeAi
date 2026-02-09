@@ -1,8 +1,8 @@
-# Install script for directory: D:/CODE/SnakeAi/build/_deps/sfml-src/src/SFML/Network
+# Install script for directory: /Users/george/code/SnakeAi/build/_deps/sfml-src/src/SFML/Network
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/SnakeAi")
+  set(CMAKE_INSTALL_PREFIX "/usr/local")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -12,7 +12,7 @@ if(NOT DEFINED CMAKE_INSTALL_CONFIG_NAME)
     string(REGEX REPLACE "^[^A-Za-z0-9_]+" ""
            CMAKE_INSTALL_CONFIG_NAME "${BUILD_TYPE}")
   else()
-    set(CMAKE_INSTALL_CONFIG_NAME "Debug")
+    set(CMAKE_INSTALL_CONFIG_NAME "Release")
   endif()
   message(STATUS "Install configuration: \"${CMAKE_INSTALL_CONFIG_NAME}\"")
 endif()
@@ -32,17 +32,39 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
   set(CMAKE_CROSSCOMPILING "FALSE")
 endif()
 
-if(CMAKE_INSTALL_COMPONENT STREQUAL "devel" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY OPTIONAL FILES "D:/CODE/SnakeAi/build/_deps/sfml-build/lib/sfml-network-d.lib")
+# Set path to fallback-tool for dependency-resolution.
+if(NOT DEFINED CMAKE_OBJDUMP)
+  set(CMAKE_OBJDUMP "/usr/bin/objdump")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "bin" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE SHARED_LIBRARY FILES "D:/CODE/SnakeAi/build/_deps/sfml-build/lib/sfml-network-d-2.dll")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES
+    "/Users/george/code/SnakeAi/build/_deps/sfml-build/lib/libsfml-network.2.6.0.dylib"
+    "/Users/george/code/SnakeAi/build/_deps/sfml-build/lib/libsfml-network.2.6.dylib"
+    )
+  foreach(file
+      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libsfml-network.2.6.0.dylib"
+      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libsfml-network.2.6.dylib"
+      )
+    if(EXISTS "${file}" AND
+       NOT IS_SYMLINK "${file}")
+      execute_process(COMMAND /usr/bin/install_name_tool
+        -delete_rpath "/Users/george/code/SnakeAi/build/_deps/sfml-build/lib"
+        "${file}")
+      if(CMAKE_INSTALL_DO_STRIP)
+        execute_process(COMMAND "/usr/bin/strip" -x "${file}")
+      endif()
+    endif()
+  endforeach()
+endif()
+
+if(CMAKE_INSTALL_COMPONENT STREQUAL "bin" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/Users/george/code/SnakeAi/build/_deps/sfml-build/lib/libsfml-network.dylib")
 endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
 if(CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "D:/CODE/SnakeAi/build/_deps/sfml-build/src/SFML/Network/install_local_manifest.txt"
+  file(WRITE "/Users/george/code/SnakeAi/build/_deps/sfml-build/src/SFML/Network/install_local_manifest.txt"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()

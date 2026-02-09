@@ -7,7 +7,7 @@ if(CMAKE_VERSION VERSION_LESS "3.0.0")
    message(FATAL_ERROR "CMake >= 3.0.0 required")
 endif()
 cmake_policy(PUSH)
-cmake_policy(VERSION 3.0.0...3.31)
+cmake_policy(VERSION 3.0.0...4.0)
 #----------------------------------------------------------------
 # Generated CMake target import file.
 #----------------------------------------------------------------
@@ -19,7 +19,7 @@ set(CMAKE_IMPORT_FILE_VERSION 1)
 set(_cmake_targets_defined "")
 set(_cmake_targets_not_defined "")
 set(_cmake_expected_targets "")
-foreach(_cmake_expected_target IN ITEMS sfml-system sfml-main sfml-window OpenGL sfml-network sfml-graphics Freetype OpenAL VORBIS FLAC sfml-audio)
+foreach(_cmake_expected_target IN ITEMS sfml-system sfml-window OpenGL sfml-network sfml-graphics Freetype OpenAL VORBIS FLAC sfml-audio)
   list(APPEND _cmake_expected_targets "${_cmake_expected_target}")
   if(TARGET "${_cmake_expected_target}")
     list(APPEND _cmake_targets_defined "${_cmake_expected_target}")
@@ -59,13 +59,6 @@ endif()
 add_library(sfml-system SHARED IMPORTED)
 
 set_target_properties(sfml-system PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/include"
-)
-
-# Create imported target sfml-main
-add_library(sfml-main STATIC IMPORTED)
-
-set_target_properties(sfml-main PROPERTIES
   INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/include"
 )
 

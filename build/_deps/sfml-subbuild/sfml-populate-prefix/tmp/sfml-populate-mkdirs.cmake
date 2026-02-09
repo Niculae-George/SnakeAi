@@ -6,22 +6,22 @@ cmake_minimum_required(VERSION ${CMAKE_VERSION}) # this file comes with cmake
 # If CMAKE_DISABLE_SOURCE_CHANGES is set to true and the source directory is an
 # existing directory in our source tree, calling file(MAKE_DIRECTORY) on it
 # would cause a fatal error, even though it would be a no-op.
-if(NOT EXISTS "D:/CODE/SnakeAi/build/_deps/sfml-src")
-  file(MAKE_DIRECTORY "D:/CODE/SnakeAi/build/_deps/sfml-src")
+if(NOT EXISTS "/Users/george/code/SnakeAi/build/_deps/sfml-src")
+  file(MAKE_DIRECTORY "/Users/george/code/SnakeAi/build/_deps/sfml-src")
 endif()
 file(MAKE_DIRECTORY
-  "D:/CODE/SnakeAi/build/_deps/sfml-build"
-  "D:/CODE/SnakeAi/build/_deps/sfml-subbuild/sfml-populate-prefix"
-  "D:/CODE/SnakeAi/build/_deps/sfml-subbuild/sfml-populate-prefix/tmp"
-  "D:/CODE/SnakeAi/build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp"
-  "D:/CODE/SnakeAi/build/_deps/sfml-subbuild/sfml-populate-prefix/src"
-  "D:/CODE/SnakeAi/build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp"
+  "/Users/george/code/SnakeAi/build/_deps/sfml-build"
+  "/Users/george/code/SnakeAi/build/_deps/sfml-subbuild/sfml-populate-prefix"
+  "/Users/george/code/SnakeAi/build/_deps/sfml-subbuild/sfml-populate-prefix/tmp"
+  "/Users/george/code/SnakeAi/build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp"
+  "/Users/george/code/SnakeAi/build/_deps/sfml-subbuild/sfml-populate-prefix/src"
+  "/Users/george/code/SnakeAi/build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp"
 )
 
 set(configSubDirs )
 foreach(subDir IN LISTS configSubDirs)
-    file(MAKE_DIRECTORY "D:/CODE/SnakeAi/build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/${subDir}")
+    file(MAKE_DIRECTORY "/Users/george/code/SnakeAi/build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/${subDir}")
 endforeach()
 if(cfgdir)
-  file(MAKE_DIRECTORY "D:/CODE/SnakeAi/build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp${cfgdir}") # cfgdir has leading slash
+  file(MAKE_DIRECTORY "/Users/george/code/SnakeAi/build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp${cfgdir}") # cfgdir has leading slash
 endif()
