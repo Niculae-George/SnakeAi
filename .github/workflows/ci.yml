@@ -30,7 +30,9 @@ jobs:
           libfreetype6-dev
 
     - name: Configure CMake
-      run: cmake -B build -S . -DCMAKE_BUILD_TYPE=Release
+      run: |
+        rm -rf build
+        cmake -B build -S . -DCMAKE_BUILD_TYPE=Release
 
     - name: Build
       run: cmake --build build --config Release
