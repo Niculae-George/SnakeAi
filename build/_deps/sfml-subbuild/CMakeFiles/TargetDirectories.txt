@@ -1,3 +1,0 @@
-/Users/george/code/SnakeAi/build/_deps/sfml-subbuild/CMakeFiles/sfml-populate.dir
-/Users/george/code/SnakeAi/build/_deps/sfml-subbuild/CMakeFiles/edit_cache.dir
-/Users/george/code/SnakeAi/build/_deps/sfml-subbuild/CMakeFiles/rebuild_cache.dir
