@@ -21,16 +21,16 @@ namespace Config {
     inline const sf::Time MOVE_INTERVAL = sf::milliseconds(100);
     inline const int REPLAY_MEMORY_SIZE = 10000;
     inline const int BATCH_SIZE = 32;
-    inline const double GAMMA = 0.95;
-    inline const double EPSILON_DECAY = 0.999;
+    inline const double GAMMA = 0.99; // Value future rewards more
+    inline const double EPSILON_DECAY = 0.997; // Faster decay (hits 0.01 in ~1500 games)
     inline const double MIN_EPSILON = 0.00001;
 
     // Rewards
-    inline const double REWARD_FOOD = 10.0;
-    inline const double REWARD_DEATH = -10.0;
-    inline const double REWARD_STEP = -0.01; // Small penalty to encourage speed
-    inline const double REWARD_CLOSER = 0.0; // Disabled
-    inline const double REWARD_AWAY = 0.0;   // Disabled
+    inline const double REWARD_FOOD = 20.0;
+    inline const double REWARD_DEATH = -50.0;  // Reduced from -100 (recoverable)
+    inline const double REWARD_STEP = -0.05;   // Reduced from -0.5 (encourage movement)
+    inline const double REWARD_CLOSER = 0.5;   // Positive reinforcement
+    inline const double REWARD_AWAY = -0.6;    // Gentle correction
 
 #ifndef HEADLESS_BUILD
     // Colors

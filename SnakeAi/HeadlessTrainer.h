@@ -36,21 +36,38 @@ public:
                 
                 std::vector<double> state = aiAgent_.getState(game_.getGrid(), head, tail, food, direction);
                 
-                int action = aiAgent_.getAction(state);
-                sf::Vector2i moveDir;
-                if (action == 1)      moveDir = {direction.y, -direction.x}; 
-                else if (action == 2) moveDir = {-direction.y, direction.x}; 
-                else                  moveDir = direction;                   
+                // --- BFS Teacher Logic ---
+                sf::Vector2i moveDir = game_.findBestMoveBFS();
+                int action = 0;
+                
+                if (moveDir != sf::Vector2i(0, 0)) {
+                    // Teacher found a path, force the action to follow it
+                    if (moveDir == sf::Vector2i(direction.y, -direction.x)) action = 1;      // Left
+                    else if (moveDir == sf::Vector2i(-direction.y, direction.x)) action = 2; // Right
+                    else action = 0;                                                         // Straight
+                } else {
+                    // No BFS path, let the AI guess (Survival Mode)
+                    action = aiAgent_.getAction(state);
+                    if (action == 1)      moveDir = {direction.y, -direction.x};
+                    else if (action == 2) moveDir = {-direction.y, direction.x};
+                    else                  moveDir = direction;
+                }
 
                 bool alive = game_.step(moveDir);
                 sf::Vector2i nextHead = game_.getSnakeBody().front();
                 
+                // Reward Logic
+                float dPre = (float)(std::abs(head.x - food.x) + std::abs(head.y - food.y));
+                float dPost = (float)(std::abs(nextHead.x - food.x) + std::abs(nextHead.y - food.y));
+
                 double reward = Config::REWARD_STEP;
                 if (!alive) {
                     reward = Config::REWARD_DEATH;
                     isGameOver = true;
                 } else if (nextHead == food) {
                     reward = Config::REWARD_FOOD;
+                } else {
+                    reward += (dPost < dPre) ? Config::REWARD_CLOSER : Config::REWARD_AWAY;
                 }
 
                 std::vector<double> nextState = aiAgent_.getState(game_.getGrid(), nextHead, game_.getSnakeBody().back(), food, moveDir);
@@ -72,13 +89,14 @@ public:
             aiAgent_.decayEpsilon();
             
             // 3. Share: Save my findings back to the global brain
-            aiAgent_.save(saveFile_);
-
-            if (attempt % 10 == 0 || attempt == 1) {
-                std::cout << "Attempt: " << attempt 
-                          << " | Score: " << game_.getScore() 
-                          << " | Epsilon: " << aiAgent_.epsilon << std::endl;
+            if (attempt % 10 == 0) {
+                aiAgent_.save(saveFile_);
             }
+
+            // Output EVERY attempt
+            std::cout << "Attempt: " << attempt 
+                      << " | Score: " << game_.getScore() 
+                      << " | Epsilon: " << aiAgent_.epsilon << std::endl;
         }
         
         std::cout << "--- Training Complete ---" << std::endl;

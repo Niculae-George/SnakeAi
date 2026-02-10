@@ -35,6 +35,6 @@ public:
     
 private:
     int inputSize = 34; // 24 (rays) + 2 (food) + 2 (tail) + 3 (danger) + 3 (flood fill)
-    int hiddenSize = 32;
+    int hiddenSize = 128;
     int outputSize = 3; // Straight, Left, Right
 };
